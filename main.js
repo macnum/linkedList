@@ -126,6 +126,7 @@ class LinkedList {
 		let newNode = new Node(value);
 		if (!this.head) {
 			this.head = newNode;
+			this.tail = newNode;
 			return;
 		}
 
@@ -149,7 +150,7 @@ class LinkedList {
 		return this.head;
 	}
 
-	tail() {
+	getTail() {
 		if (!this.head) return undefined;
 		let current = this.head;
 		while (current.nextNode !== null) {
