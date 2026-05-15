@@ -196,6 +196,37 @@ class LinkedList {
 		}
 		return nodeOfString + 'null';
 	}
+	insertAt(index, ...value) {
+		let idx = index;
+		value.forEach((item) => {
+			let newNode = new Node(item);
+			if (!this.head) return undefined;
+			if (idx === 0) {
+				this.prepend(item);
+				return;
+			}
+			if (idx > this.size() - 1) return RangeError;
+			if (idx < 0) return RangeError;
+
+			const prevNode = this.at(idx - 1);
+			const nextNode = prevNode.nextNode;
+
+			prevNode.nextNode = newNode;
+			newNode.nextNode = nextNode;
+			idx++;
+		});
+	}
+	removeAt(index) {
+		if (!this.head) return undefined;
+		if (idx > this.size() - 1) return RangeError;
+		if (idx < 0) return RangeError;
+
+		const prevNode = this.at(idx - 1);
+		const nextNode = prevNode.nextNode;
+
+		prevNode.nextNode = newNode;
+		newNode.nextNode = nextNode;
+	}
 }
 
 class Node {
