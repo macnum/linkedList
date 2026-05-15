@@ -95,20 +95,31 @@
 class LinkedList {
 	constructor() {
 		this.head = null;
+		this.tail = null;
 	}
 
 	append(value) {
 		let newNode = new Node(value);
 
-		if (!this.head) {
-			this.head = newNode;
+		if (this.tail) {
+			this.tail.nextNode = newNode;
+			this.tail = newNode;
 			return;
 		}
-		let current = this.head;
-		while (current.nextNode !== null) {
-			current = current.nextNode;
+		if (!this.head) {
+			this.head = newNode;
+			this.tail = newNode;
+			return;
 		}
-		current.nextNode = newNode;
+
+		// let current = this.head;
+		// while (current.nextNode !== null) {
+		// 	current = current.nextNode;
+		// }
+
+		// current.nextNode = newNode;
+
+		// this.tail = newNode;
 	}
 
 	prepend(value) {
@@ -218,14 +229,19 @@ class LinkedList {
 	}
 	removeAt(index) {
 		if (!this.head) return undefined;
-		if (idx > this.size() - 1) return RangeError;
-		if (idx < 0) return RangeError;
+		if (index > this.size() - 1) return RangeError;
+		if (index < 0) return RangeError;
 
-		const prevNode = this.at(idx - 1);
-		const nextNode = prevNode.nextNode;
+		if (index === 0) {
+			this.head = this.head.nextNode;
+			return;
+		}
 
-		prevNode.nextNode = newNode;
-		newNode.nextNode = nextNode;
+		const removeNode = this.at(index);
+		const beforeRemoveNode = this.at(index - 1);
+		const afterRemoveNode = removeNode.nextNode;
+
+		beforeRemoveNode.nextNode = afterRemoveNode;
 	}
 }
 
